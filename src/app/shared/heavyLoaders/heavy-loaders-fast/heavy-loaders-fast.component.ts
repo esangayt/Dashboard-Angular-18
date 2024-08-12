@@ -9,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class HeavyLoadersFastComponent {
 
+  constructor() {
+    console.log('HeavyLoadersFastComponent created');
+  }
 }
