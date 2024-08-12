@@ -4,12 +4,40 @@
     <button class="p-2 bg-blue-500 rounded" (click)="toggleContent()">
       Click me!
     </button>
-
     @if (showContent()) {
       <p class="mt-5">This is you.</p>
     } @else {
       <p class="mt-5">***</p>
     }
+  </div>
 
+  <div class="bg-white rounded shadow p-10">
+    <h2 class="text-3xl">{{ grade() }}</h2>
+    @switch (grade()) {
+      @case ('A') {
+        Case A.
+      }
+      @case ('B') {
+        Case B.
+      }
+      @default {
+        Default case.
+      }
+    }
+  </div>
+
+  <div class="bg-white rounded shadow p-10">
+    <ul>
+      @for (framework of frameworks(); track $index) {
+        <p>{{ framework }}</p>
+      }
+    </ul>
+    <ul>
+      @for (framework of frameworks2(); track framework; let index = $index) {
+        <p>{{ framework }}</p>
+      } @empty {
+        <p>No frameworks.</p>
+      }
+    </ul>
   </div>
 </section>
