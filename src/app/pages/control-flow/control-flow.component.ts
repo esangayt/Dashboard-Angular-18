@@ -1,11 +1,14 @@
 import {Component, signal} from '@angular/core';
+import {TitleComponent} from "@shared/title/title.component";
 
 type Grade = 'A' | 'B' | 'C' | 'D' | 'F';
 
 @Component({
   selector: 'app-control-flow',
   standalone: true,
-  imports: [],
+  imports: [
+    TitleComponent
+  ],
   templateUrl: './control-flow.component.html',
   styleUrl: './control-flow.component.css'
 })
