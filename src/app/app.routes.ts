@@ -47,18 +47,29 @@ export const routes: Routes = [
         path: 'input-output',
         title: 'input-output',
         loadComponent: () => import('./pages/input-output/input-output.component').then(m => m.InputOutputComponent)
+      },
+      {
+        path: 'material3',
+        title: 'material3',
+        loadComponent: () => import('./pages/material3/material3.component').then(m => m.Material3Component)
       }
       ,
       {
         path: '', redirectTo: 'control-flow', pathMatch: 'full'
       }
     ]
-  }
-  ,
+  },
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    // redirectTo: '/dashboard',
+    redirectTo: (route) => {
+      // console.log(route);
+      // const authService = inject(AuthService);
+      // if (authService.isLoggedIn) {
+
+      return '/dashboard/material';
+    },
+    pathMatch: 'full',
   },
   {
     path: '**',
