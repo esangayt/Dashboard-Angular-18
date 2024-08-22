@@ -1,11 +1,13 @@
-import * as Mailosaur from 'mailosaur';
-const mailosaurClient = new Mailosaur.MailosaurClient('YOUR_MAILOSAUR_API_KEY');
+import "cypress-mailosaur";
 
 describe('Mercadooh Register', () => {
   it('should display the correct title and content', () => {
+    const mail = Math.floor(10 + Math.random() * 90);
+    const domain = 'xcatrvum.mailosaur.net';
+
     cy.visit('https://web.mercadooh.com/account-registration')
 
-    cy.get('input[name="email"]').type('test_extremo_extremo@test.com');
+    cy.get('input[name="email"]').type(`testE2E_C${mail}@${domain}`);
     cy.get('input[name="phone"]').type('1234567890');
     cy.get('input[name="name"]').type('Test');
     cy.get('input[name="lastname"]').type('Test');
@@ -20,16 +22,18 @@ describe('Mercadooh Register', () => {
   })
 });
 
-// // test with mailsour to validate the email
-// describe('Email Validation', () => {
-//   it('should receive a validation email after registration', () => {
-//     // Your login test code here...
-//
-//     // Check the email
-//     cy.wrap(mailosaurClient.messages.get('YOUR_MAILOSAUR_SERVER_ID', {
-//       sentTo: 'test_extremo_extremo@test.com'
-//     })).then((email) => {
-//
-//     }
-//     });
-//   });
+describe('Email Validation Mercadooh', () => {
+  it('should receive a validation email after registration', () => {
+    cy.mailosaurGetMessage("xcatrvum", {
+      subject: "Activar su nueva cuenta",
+    }).then((email) => {
+      if (email.subject != null) {
+        expect(email!.subject).to.equal('Activar su nueva cuenta');
+        expect(<string>email.from![0].email).to.equal('esangay@invian.net');
+        expect(email.text?.body).to.contain('Hola');
+        const https = require("https");
+        cy.visit(email.text!.links![0].href);
+      }
+    });
+  });
+});
